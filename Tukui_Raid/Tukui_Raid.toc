@@ -1,0 +1,10 @@
+## Interface: 40200
+## Author: Tukz, Hydra
+## Title: |cffC11515Smelly|r |cffFFFFFFDps Layout|r
+## Notes: Raid layout for party and raid.
+## X-Email: tukz@tukui.org
+## X-Category: UnitFrame
+## RequiredDeps: Tukui
+
+oUF_Tukz_Raid01_25.lua
+oUF_Tukz_Raid40.lua

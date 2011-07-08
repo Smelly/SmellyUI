@@ -1,0 +1,10 @@
+## Interface: 40200
+## Title: |cffC11515Smelly|r |cffFFFFFFRunes|r
+## Notes: Very low-weight rune tracker for Tukui.
+## Author: Foof
+## Version: 1.4
+## RequiredDeps: Tukui
+
+config.lua
+fRunes.lua
+fRuneStrike.lua

@@ -1,0 +1,7 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file="config.lua"/>
+	<Script file="core.lua"/>
+	<Script file="Plugins\power.lua"/>
+	<Script file="Plugins\soulshards.lua"/>
+	<Script file="Plugins\holypower.lua"/>
+</Ui>
