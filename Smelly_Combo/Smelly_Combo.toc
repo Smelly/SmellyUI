@@ -1,0 +1,8 @@
+## Interface: 40200
+## Author: Smelly, Hydra
+## Version: 1.5
+## Title: |cffC11515Smelly|r |cffFFFFFFCombo|r
+## Notes: Minimal Combo Bar Replacement.
+## RequiredDeps: Tukui
+
+sCombo.xml
