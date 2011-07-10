@@ -27,7 +27,7 @@ local function Shared(self, unit)
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetPoint("TOPLEFT")
 	health:SetPoint("TOPRIGHT")
-	health:Height(C.unitframes.unitframesize.player_target[2] + 2)
+	health:Height(C.unitframes.unitframesize.player_target[2])
 	health:SetStatusBarTexture(normTex)
 	health:CreateBorder(false, true)
 	self.Health = health
@@ -107,6 +107,7 @@ local function Shared(self, unit)
 	power.bg:SetTexture(normTex)
 	power.bg:SetAlpha(1)
 	power.bg.multiplier = 0.4
+	self.Power.bg = power.bg
 	
 	if C.unitframes.unicolor then
 		power.colorClass = true
@@ -143,11 +144,11 @@ local function Shared(self, unit)
 	ReadyCheck:Point("TOP", 0, 6) 	
 	self.ReadyCheck = ReadyCheck
 
-	--[[if not C["unitframes"].raidunitdebuffwatch then
+	if not C["unitframes"].raidunitdebuffwatch then
 		self.DebuffHighlightAlpha = 1
 		self.DebuffHighlightBackdrop = true
 		self.DebuffHighlightFilter = true
-	end]]
+	end
 	
 	if C["unitframes"].showrange then
 		local range = {insideAlpha = 1, outsideAlpha = C["unitframes"].raidalphaoor}
@@ -236,7 +237,7 @@ oUF:Factory(function(self)
 				self:SetHeight(header:GetAttribute('initial-height'))
 			]],
 			'initial-width', 70,
-			'initial-height', C.unitframes.unitframesize.player_target[2] + 2,
+			'initial-height', C.unitframes.unitframesize.player_target[2],
 			"showParty", true,
 			"showPlayer", C["unitframes"].showplayerinparty,
 			"showRaid", true,
@@ -331,16 +332,15 @@ oUF:Factory(function(self)
 	end
 end)
 
-local RaidBG = CreateFrame("Frame", nil, UIParent)
+local RaidBG = CreateFrame("Frame", nil, TukuiGrid)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
 
-RaidBG:RegisterEvent("PLAYER_ENTERING_WORLD")
 RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
 RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
 RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
+RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
-RaidBG:RegisterEvent("CHAT_MSG_SYSTEM")
 RaidBG:SetScript("OnEvent", function(self, event)
 	if TukuiGrid:IsVisible() then
 		self:ClearAllPoints()

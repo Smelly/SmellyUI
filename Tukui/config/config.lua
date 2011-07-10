@@ -16,7 +16,7 @@ C["unitframes"] = {
 	["enemyhcolor"] = false,                            -- enemy target (players) color by hostility, very useful for healer.
 	["unitcastbar"] = true,                             -- enable tukui castbar
 	["cblatency"] = false,                              -- enable castbar latency
-	["cbicons"] = false,                                 -- enable icons on castbar
+	["cbicons"] = false,                                 -- enable icons on castbar (not finished)
 	["auratimer"] = true,                               -- enable timers on buffs/debuffs
 	["auratextscale"] = 11,                             -- the font size of buffs/debuffs timers on unitframes
 	["playerauras"] = false,                            -- enable auras
@@ -27,14 +27,14 @@ C["unitframes"] = {
 	["showtotalhpmp"] = false,                          -- change the display of info text on player and target with XXXX/Total.
 	["showsmooth"] = true,                              -- enable smooth bar
 	["charportrait"] = false,                           -- do i really need to explain this?
-	["maintank"] = false,                               -- enable maintank
-	["mainassist"] = false,                             -- enable mainassist
+	["maintank"] = false,                               -- enable maintank (not done)
+	["mainassist"] = false,                             -- enable mainassist (not done)
 	["unicolor"] = true,                               -- enable unicolor theme
 	["combatfeedback"] = true,                          -- enable combattext on player and target.
 	["playeraggro"] = true,                             -- color player border to red if you have aggro on current target.
-	["healcomm"] = false,                               -- enable healprediction support.
-	["onlyselfdebuffs"] = false,                        -- display only our own debuffs applied on target
-	["showfocustarget"] = false,                         -- show focus target
+	["healcomm"] = true,                               -- enable healprediction support.
+	["onlyselfdebuffs"] = true,                        -- display only our own debuffs applied on target
+	["showfocustarget"] = false,                         -- show focus target (not done)
 	["bordercolor"] = { .4,.4,.4 },                     -- unit frames panel border color
 	
 	["unitframesize"] = {								-- adjust the size of the unitframes (width, height)
@@ -115,7 +115,7 @@ C["auras"] = {
 
 C["actionbar"] = {
 	["enable"] = true,                                  -- enable tukui action bars
-	["hotkey"] = true,                                 -- enable hotkey display because it was a lot requested
+	["hotkey"] = false,                                 -- enable hotkey display because it was a lot requested
 	["hideshapeshift"] = false,                         -- hide shapeshift or totembar because it was a lot requested.
 	["showgrid"] = true,                                -- show grid on empty button
 	["buttonsize"] = 25,                                -- normal buttons size
@@ -169,7 +169,7 @@ C["datatext"] = {
 C["chat"] = {
 	["enable"] = true,                                  -- blah
 	["whispersound"] = true,                            -- play a sound when receiving whisper
-	["background"] = false,
+	["background"] = false,								-- keep false
 }
 
 C["nameplate"] = {

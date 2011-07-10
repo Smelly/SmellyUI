@@ -134,18 +134,17 @@ oUF:Factory(function(self)
 	raid:SetPoint('TOPLEFT', UIParent, 5, -40)
 end)
 
-local RaidBG = CreateFrame("Frame", nil, UIParent)
+local RaidBG = CreateFrame("Frame", nil, oUF_TukuiDpsRaid40)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
 
-RaidBG:RegisterEvent("PLAYER_ENTERING_WORLD")
 RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
 RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
 RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
+RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
-RaidBG:RegisterEvent("CHAT_MSG_SYSTEM")
 RaidBG:SetScript("OnEvent", function(self)
-	if oUF_TukuiDpsRaid40:IsVisible() then
+	if oUF_TukuiDpsRaid40:IsVisible() and oUF_TukuiDpsRaid40 then
 		self:ClearAllPoints()
 		self:Point("TOPLEFT", oUF_TukuiDpsRaid40, "TOPLEFT", -2, 2)
 		self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid40, "BOTTOMRIGHT", 2, -2)

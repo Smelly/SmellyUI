@@ -1129,6 +1129,38 @@ if C["unitframes"].raidunitdebuffwatch == true then
 			--Al'Akir
 			SpellName(93260), -- Ice Storm
 			SpellName(93295), -- Lightning Rod
+			
+		-- Firelands shit thanks Kaelhan :)
+			-- Beth'tilac
+				SpellName(99506),	-- Widows Kiss
+				SpellName(97202),	-- Fiery Web Spin
+				SpellName(49026),	-- Fixate
+				SpellName(97079),	-- Seeping Venom
+			-- Lord Rhyolith
+
+			-- Alysrazor
+				SpellName(101296),	-- Fieroblast
+				SpellName(100723),	-- Gushing Wound
+				SpellName(99389),	-- Imprinted
+				SpellName(101729),	-- Blazing Claw
+			-- Shannox
+				SpellName(99837),	-- Crystal Prison
+				SpellName(99937),	-- Jagged Tear
+			-- Baleroc
+				--SpellName(99403),	-- Torment1
+				SpellName(99256),	-- Torment2
+				--SpellName(100230),	-- Torment3
+				--SpellName(100232),	-- Torment4
+				SpellName(99252),	-- Blaze of Glory
+				SpellName(99516),	-- Countdown
+			-- Majordomo Staghelm
+				SpellName(98450),	-- Searing Seeds
+			-- Ragnaros
+				SpellName(99399),	-- Burning Wound
+				SpellName(100293),	-- Lava Wave
+				SpellName(98313),	-- Magma Blast
+				SpellName(100675),	-- Dreadflame
+		
 		}
 
 		T.ReverseTimer = {

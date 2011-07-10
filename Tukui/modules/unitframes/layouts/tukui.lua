@@ -332,12 +332,8 @@ local function Shared(self, unit)
 			if C["unitframes"].classbar then
 				if T.myclass == "DRUID" then			
 					local eclipseBar = CreateFrame('Frame', nil, self)
-					eclipseBar:Point("BOTTOMLEFT", self, "TOPLEFT", 0, 1)
-					if T.lowversion then
-						eclipseBar:Size(186, 8)
-					else
-						eclipseBar:Size(250, 8)
-					end
+					eclipseBar:Point("BOTTOMLEFT", self, "TOPLEFT", 0, 8)
+					eclipseBar:Size(PLAYER_TARGET_WIDTH, 5)
 					eclipseBar:SetFrameStrata("MEDIUM")
 					eclipseBar:SetFrameLevel(8)
 					eclipseBar:SetTemplate("Default")
@@ -345,6 +341,10 @@ local function Shared(self, unit)
 					eclipseBar:SetScript("OnShow", function() T.EclipseDisplay(self, false) end)
 					eclipseBar:SetScript("OnUpdate", function() T.EclipseDisplay(self, true) end) -- just forcing 1 update on login for buffs/shadow/etc.
 					eclipseBar:SetScript("OnHide", function() T.EclipseDisplay(self, false) end)
+					eBG = CreateFrame("Frame", nil, eclipseBar)
+					eBG:CreatePanel("Default", 1, 1, "TOPLEFT", eclipseBar, "TOPLEFT", -2, 2)
+					eBG:Point("BOTTOMRIGHT", eclipseBar, "BOTTOMRIGHT", 2, -2)
+					eBG:CreateShadow()
 					
 					local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
 					lunarBar:SetPoint('LEFT', eclipseBar, 'LEFT', 0, 0)
@@ -363,7 +363,7 @@ local function Shared(self, unit)
 					local eclipseBarText = eclipseBar:CreateFontString(nil, 'OVERLAY')
 					eclipseBarText:SetPoint('TOP', panel)
 					eclipseBarText:SetPoint('BOTTOM', panel)
-					eclipseBarText:SetFont(font1, 12)
+					eclipseBarText:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
 					eclipseBar.PostUpdatePower = T.EclipseDirection
 					
 					-- hide "low mana" text on load if eclipseBar is show
@@ -475,7 +475,6 @@ local function Shared(self, unit)
 		
 		-- cast bar for player and target
 		if (C["unitframes"].unitcastbar == true) then
-			-- castbar of player and target
 			local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
 			castbar:SetStatusBarTexture(normTex)
 			
@@ -966,10 +965,10 @@ local function Shared(self, unit)
 			
 			-- create buff at left of unit if they are boss units
 			local buffs = CreateFrame("Frame", nil, self)
-			buffs:Height(26)
+			buffs:Height(PLAYER_TARGET_HEIGHT + 4)
 			buffs:Width(252)
 			buffs:Point("RIGHT", self, "LEFT", -4, 0)
-			buffs.size = 26
+			buffs.size = PLAYER_TARGET_HEIGHT + 4
 			buffs.num = 3
 			buffs.spacing = 2
 			buffs.initialAnchor = 'RIGHT'
@@ -984,10 +983,10 @@ local function Shared(self, unit)
 
 		-- create debuff for arena units
 		local debuffs = CreateFrame("Frame", nil, self)
-		debuffs:Height(26)
+		debuffs:Height(BOSS_HEIGHT + 4)
 		debuffs:Width(200)
 		debuffs:Point('LEFT', self, 'RIGHT', 4, 0)
-		debuffs.size = 26
+		debuffs.size = BOSS_HEIGHT + 4
 		debuffs.num = 5
 		debuffs.spacing = 2
 		debuffs.initialAnchor = 'LEFT'
@@ -1022,15 +1021,16 @@ local function Shared(self, unit)
 		castbar:SetPoint("RIGHT", 0, 0)
 		castbar:SetPoint("TOP", self, "BOTTOM", 0, -8)
 		
-		castbar:Height(4)
+		castbar:Height(12)
 		castbar:SetStatusBarTexture(blankTex)
 		castbar:SetFrameLevel(6)
 		
 		castbar.bg = CreateFrame("Frame", nil, castbar)
-		castbar.bg:SetTemplate("Default")
+		castbar.bg:SetTemplate("Transparent")
 		castbar.bg:Point("TOPLEFT", -2, 2)
 		castbar.bg:Point("BOTTOMRIGHT", 2, -2)
 		castbar.bg:SetFrameLevel(5)
+		castbar.bg:CreateShadow()
 		
 		castbar.time = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)

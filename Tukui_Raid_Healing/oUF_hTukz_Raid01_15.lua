@@ -11,7 +11,7 @@ if C["unitframes"].gridonly then return end
 
 local font2 = C["media"].uffont
 local font1 = C["media"].font
-local normTex = C["media"].normTex
+local normTex = C["media"].blank
 
 local function Shared(self, unit)
 	self.colors = T.oUF_colors
@@ -27,43 +27,59 @@ local function Shared(self, unit)
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetPoint("TOPLEFT")
 	health:SetPoint("TOPRIGHT")
-	health:Height(27*T.raidscale)
+	health:Height(C.unitframes.unitframesize.player_target[2])
 	health:SetStatusBarTexture(normTex)
+	health:CreateBorder(false, true)
 	self.Health = health
 	
 	health.bg = health:CreateTexture(nil, 'BORDER')
 	health.bg:SetAllPoints(health)
 	health.bg:SetTexture(normTex)
-	health.bg:SetTexture(0.3, 0.3, 0.3)
-	health.bg.multiplier = 0.3
+	health.bg:SetTexture(1, 1, 1)
+	health.bg.multiplier = (0.3)
 	self.Health.bg = health.bg
 	
 	health.value = health:CreateFontString(nil, "OVERLAY")
-	health.value:SetPoint("RIGHT", health, -3, 1)
-	health.value:SetFont(font2, 12*T.raidscale, "THINOUTLINE")
-	health.value:SetTextColor(1,1,1)
-	health.value:SetShadowOffset(1, -1)
+	health.value:Point("TOP", 1, -2)
+	health.value:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
 	self.Health.value = health.value
 	
 	health.PostUpdate = T.PostUpdateHealthRaid
-	
 	health.frequentUpdates = true
 	
-	if C.unitframes.unicolor == true then
+	if C.unitframes.unicolor then
 		health.colorDisconnected = false
 		health.colorClass = false
-		health:SetStatusBarColor(.3, .3, .3, 1)
-		health.bg:SetVertexColor(.1, .1, .1, 1)		
+		health:SetStatusBarColor(.2, .2, .2)
+		health.bg:SetVertexColor(.05, .05, .05)		
 	else
 		health.colorDisconnected = true
 		health.colorClass = true
 		health.colorReaction = true			
 	end
 	
+	if C.unitframes.gradienthealth and C.unitframes.unicolor then
+		self:HookScript("OnEnter", function(self)
+			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) or (not UnitInRange(self.unit) and not UnitIsPlayer(self.unit)) then return end
+			local hover = RAID_CLASS_COLORS[select(2, UnitClass(self.unit))]
+			health:SetStatusBarColor(hover.r, hover.g, hover.b)
+			health.classcolored = true
+		end)
+		
+		self:HookScript("OnLeave", function(self)
+			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) then return end
+			local r, g, b = oUF.ColorGradient(UnitHealth(self.unit)/UnitHealthMax(self.unit), unpack(C["unitframes"].gradient))
+			health:SetStatusBarColor(r, g, b)
+			health.classcolored = false
+		end)
+	end
+	
 	local power = CreateFrame("StatusBar", nil, self)
-	power:Height(4*T.raidscale)
-	power:Point("TOPLEFT", health, "BOTTOMLEFT", 0, -1)
-	power:Point("TOPRIGHT", health, "BOTTOMRIGHT", 0, -1)
+	power:SetHeight(2)
+	power:CreateBorder(false, true)
+	power:SetFrameLevel(health:GetFrameLevel() + 1)
+	power:Point("BOTTOMLEFT", self.Health, "BOTTOMLEFT", 4, 4)
+	power:Point("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", -4, 4)
 	power:SetStatusBarTexture(normTex)
 	self.Power = power
 	
@@ -85,16 +101,15 @@ local function Shared(self, unit)
 	end
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
-    name:SetPoint("LEFT", health, 3, 0)
-	name:SetFont(font2, 12*T.raidscale, "THINOUTLINE")
-	name:SetShadowOffset(1, -1)
-	self:Tag(name, "[Tukui:namemedium]")
+	name:Point("CENTER", health, 0, -1)
+	name:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+	self:Tag(name, "[Tukui:getnamecolor][Tukui:nameshort]")
 	self.Name = name
 	
     local leader = health:CreateTexture(nil, "OVERLAY")
     leader:Height(12*T.raidscale)
     leader:Width(12*T.raidscale)
-    leader:SetPoint("TOPLEFT", 0, 6)
+    leader:SetPoint("TOPLEFT", 4, -3)
 	self.Leader = leader
 	
     local LFDRole = health:CreateTexture(nil, "OVERLAY")
@@ -135,9 +150,9 @@ local function Shared(self, unit)
 	
     local debuffs = CreateFrame('Frame', nil, self)
     debuffs:SetPoint('LEFT', self, 'RIGHT', 4, 0)
-    debuffs:SetHeight(26)
+    debuffs:SetHeight(30)
     debuffs:SetWidth(200)
-    debuffs.size = 26
+    debuffs.size = 30
     debuffs.spacing = 2
     debuffs.initialAnchor = 'LEFT'
 	debuffs.num = 5
@@ -196,15 +211,28 @@ oUF:Factory(function(self)
 	oUF:SetActiveStyle("TukuiHealR01R15")
 
 	local raid = self:SpawnHeader("oUF_TukuiHealRaid0115", nil, "custom [@raid16,exists] hide;show", 
-	'oUF-initialConfigFunction', [[
-		local header = self:GetParent()
-		self:SetWidth(header:GetAttribute('initial-width'))
-		self:SetHeight(header:GetAttribute('initial-height'))
-	]],
-	'initial-width', T.Scale(150*T.raidscale),
-	'initial-height', T.Scale(32*T.raidscale),	
-	"showParty", true, "showPlayer", C["unitframes"].showplayerinparty, "showRaid", true, "groupFilter", "1,2,3,4,5,6,7,8", "groupingOrder", "1,2,3,4,5,6,7,8", "groupBy", "GROUP", "yOffset", T.Scale(-4))
-	raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -300*T.raidscale)
+		'oUF-initialConfigFunction', [[
+			local header = self:GetParent()
+			self:SetWidth(header:GetAttribute('initial-width'))
+			self:SetHeight(header:GetAttribute('initial-height'))
+		]],
+			'initial-width', 150,
+			'initial-height', 30,
+			"showParty", true,
+			"showPlayer", C["unitframes"].showplayerinparty,
+			"showRaid", true,
+			"xoffset", 0,
+			"yOffset", -1,
+			"point", "TOP",
+			"groupFilter", "1,2,3,4,5,6,7,8",
+			"groupingOrder", "1,2,3,4,5,6,7,8",
+			"groupBy", "GROUP",
+			"maxColumns", 8,
+			"unitsPerColumn", 5,
+			"columnSpacing", 1,
+			"columnAnchorPoint", "TOP"
+	)
+	raid:Point("LEFT", UIParent, "LEFT", 6 , 0)
 	
 	local pets = {} 
 		pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
@@ -216,30 +244,44 @@ oUF:Factory(function(self)
 		pets[i]:Size(150*T.raidscale, 32*T.raidscale)
 	end
 		
-	local RaidMove = CreateFrame("Frame")
-	RaidMove:RegisterEvent("PLAYER_ENTERING_WORLD")
-	RaidMove:RegisterEvent("RAID_ROSTER_UPDATE")
-	RaidMove:RegisterEvent("PARTY_LEADER_CHANGED")
-	RaidMove:RegisterEvent("PARTY_MEMBERS_CHANGED")
-	RaidMove:SetScript("OnEvent", function(self)
-		if InCombatLockdown() then
-			self:RegisterEvent("PLAYER_REGEN_ENABLED")
-		else
-			self:UnregisterEvent("PLAYER_REGEN_ENABLED")
-			local numraid = GetNumRaidMembers()
-			local numparty = GetNumPartyMembers()
-			if numparty > 0 and numraid == 0 or numraid > 0 and numraid <= 5 then
-				raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -300*T.raidscale)
-				for i,v in ipairs(pets) do v:Enable() end
-			elseif numraid > 5 and numraid <= 10 then
-				raid:SetPoint('TOPLEFT', UIParent, 15, -260*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 10 and numraid <= 15 then
-				raid:SetPoint('TOPLEFT', UIParent, 16, -170*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 15 then
-				for i,v in ipairs(pets) do v:Disable() end
+	local ShowPet = CreateFrame("Frame")
+		ShowPet:RegisterEvent("PLAYER_ENTERING_WORLD")
+		ShowPet:RegisterEvent("RAID_ROSTER_UPDATE")
+		ShowPet:RegisterEvent("PARTY_LEADER_CHANGED")
+		ShowPet:RegisterEvent("PARTY_MEMBERS_CHANGED")
+		ShowPet:SetScript("OnEvent", function(self)
+			if InCombatLockdown() then
+				self:RegisterEvent("PLAYER_REGEN_ENABLED")
+			else
+				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				local numraid = GetNumRaidMembers()
+				local numparty = GetNumPartyMembers()
+				if numparty > 0 and numraid == 0 or numraid > 0 and numraid <= 5 then
+					for i,v in ipairs(pets) do v:Enable() end
+				else
+					for i,v in ipairs(pets) do v:Disable() end
+				end
 			end
-		end
-	end)
+		end)
+end)
+
+
+local RaidBG = CreateFrame("Frame", nil, oUF_TukuiHealRaid0115)
+RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
+RaidBG:Hide()
+
+RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
+RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
+RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
+RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
+RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
+RaidBG:SetScript("OnEvent", function(self, event)
+	if oUF_TukuiHealRaid0115:IsVisible() then
+		self:ClearAllPoints()
+		self:Point("TOPLEFT", oUF_TukuiHealRaid0115, "TOPLEFT", -2, 2)
+		self:Point("BOTTOMRIGHT", oUF_TukuiHealRaid0115, "BOTTOMRIGHT", 2, -2)
+		self:Show()
+	else
+		self:Hide()
+	end
 end)

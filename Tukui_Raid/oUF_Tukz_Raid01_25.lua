@@ -151,11 +151,11 @@ local function Shared(self, unit)
 	return self
 end
 
-oUF:RegisterStyle('TukuiDpsP05R10R15R25', Shared)
+oUF:RegisterStyle('TukuiRaid', Shared)
 oUF:Factory(function(self)
-	oUF:SetActiveStyle("TukuiDpsP05R10R15R25")
+	oUF:SetActiveStyle("TukuiRaid")
 
-	local raid = self:SpawnHeader("oUF_TukuiDpsRaid05101525", nil, "custom [@raid26,exists] hide;show", 
+	local raid = self:SpawnHeader("TukuiRaid", nil, "custom [@raid26,exists] hide;show", 
 		'oUF-initialConfigFunction', [[
 			local header = self:GetParent()
 			self:SetWidth(header:GetAttribute('initial-width'))
@@ -208,20 +208,20 @@ oUF:Factory(function(self)
 	end)
 end)
 
-local RaidBG = CreateFrame("Frame", nil, UIParent)
+local RaidBG = CreateFrame("Frame", nil, TukuiRaid)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
-RaidBG:RegisterEvent("PLAYER_ENTERING_WORLD")
+
 RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
 RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
 RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
+RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
-RaidBG:RegisterEvent("CHAT_MSG_SYSTEM")
 RaidBG:SetScript("OnEvent", function(self)
-	if oUF_TukuiDpsRaid05101525:IsVisible() then
+	if TukuiRaid and TukuiRaid:IsVisible() then
 		self:ClearAllPoints()
-		self:Point("TOPLEFT", oUF_TukuiDpsRaid05101525, "TOPLEFT", -2, 2)
-		self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid05101525, "BOTTOMRIGHT", 2, -2)
+		self:Point("TOPLEFT", TukuiRaid, "TOPLEFT", -2, 2)
+		self:Point("BOTTOMRIGHT", TukuiRaid, "BOTTOMRIGHT", 2, -2)
 		self:Show()
 	else
 		self:Hide()
