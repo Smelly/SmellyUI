@@ -163,7 +163,7 @@ C["datatext"] = {
 	["battleground"] = false,                            -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                                  -- set time to 24h format.
 	["localtime"] = true,                              -- set time to local time instead of server time.
-	["fontsize"] = 8,                                  -- font size for panels.
+	["fontsize"] = 12,                                  -- font size for panels.
 }
 
 C["chat"] = {
@@ -210,4 +210,13 @@ C["invite"] = {
 C["buffreminder"] = {
 	["enable"] = true,                                  -- this is now the new innerfire warning script for all armor/aspect class.
 	["sound"] = true,                                   -- enable warning sound notification for reminder.
+}
+
+C["skin"] = {
+	["skada"] = false,
+	["omen"] = false,
+	["embed"] = {										-- WIP still keep both embedded for now.
+		skada = true,
+		omen = true,
+	},
 }

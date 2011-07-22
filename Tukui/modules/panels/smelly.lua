@@ -133,16 +133,18 @@ addonHeader:CreatePanel("Transparent", addonBG:GetWidth(), 20, "BOTTOM", addonBG
 addonHeader.text:SetText("Addon Control Menu")
 addonHeader:CreateShadow()
 
--- Create inside BG (uses scroll frame)
-local buttonsBG = CreateFrame("Frame", "buttonsBG", addonBG)
-
 -- Create scroll frame
 local scrollFrame = CreateFrame("ScrollFrame", "scrollFrame", addonBG, "UIPanelScrollFrameTemplate")
 scrollFrame:SetPoint("TOPLEFT", addonBG, "TOPLEFT", 10, -10)
 scrollFrame:SetPoint("BOTTOMRIGHT", addonBG, "BOTTOMRIGHT", -30, 40)
+
+-- Create inside BG (uses scroll frame)
+local buttonsBG = CreateFrame("Frame", "buttonsBG", scrollFrame)
+buttonsBG:SetPoint("TOPLEFT")
+buttonsBG:SetWidth(scrollFrame:GetWidth())
+buttonsBG:SetHeight(scrollFrame:GetHeight())
 scrollFrame:SetScrollChild(buttonsBG)
 
-buttonsBG:CreatePanel("Default", scrollFrame:GetWidth(), scrollFrame:GetHeight(), "TOPLEFT", scrollFrame, "TOPLEFT", 0, 0)
 
 local saveButton = CreateFrame("Button", "saveButton", addonBG)
 saveButton:CreatePanel("Default", 70, 24, "BOTTOMLEFT", addonBG, "BOTTOMLEFT", 10, 10, true)
@@ -152,7 +154,7 @@ T.ApplyHover(saveButton)
 
 local closeButton = CreateFrame("Button", "closeButton", addonBG)
 closeButton:CreatePanel("Default", 70, 24, "BOTTOMRIGHT", addonBG, "BOTTOMRIGHT", -10, 10, true)
-closeButton.text:SetText("Close")
+closeButton.text:SetText("Cancel")
 closeButton:SetScript("OnClick", function() T.fadeOut(addonBG) end)
 T.ApplyHover(closeButton)
 
@@ -192,13 +194,13 @@ local function UpdateAddons()
 		end
 
 		if i==1 then
-			button:Point("TOPLEFT", buttonsBG, "TOPLEFT", 10, -10)
+			button:Point("TOPLEFT", buttonsBG, "TOPLEFT", 0, 0)
 		else
 			button:Point("TOP", oldb, "BOTTOM", 0, -7)
 		end
-		local text = T.SetFontString(button, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		local text = T.SetFontString(button, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		text:Point("LEFT", button, "RIGHT", 8, 0)
-		text:SetText(name)
+		text:SetText(title)
 	
 		button:SetScript("OnMouseDown", function()
 			if enabled then

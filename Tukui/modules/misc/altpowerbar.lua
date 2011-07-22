@@ -22,7 +22,7 @@ AltPowerBarStatus:Point("TOPLEFT", AltPowerBar, "TOPLEFT", 2, -2)
 AltPowerBarStatus:Point("BOTTOMRIGHT", AltPowerBar, "BOTTOMRIGHT", -2, 2)
 
 local AltPowerText = AltPowerBarStatus:CreateFontString(nil, "OVERLAY")
-AltPowerText:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+AltPowerText:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 AltPowerText:Point("CENTER", AltPowerBar, "CENTER", 0, 0)
 
 AltPowerBar:RegisterEvent("UNIT_POWER")

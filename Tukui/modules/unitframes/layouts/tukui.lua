@@ -171,12 +171,12 @@ local function Shared(self, unit)
 		health:Height(PLAYER_TARGET_HEIGHT)
 		power:Height(2)
 		
-		health.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		health.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		health.value:Point("RIGHT", health, "RIGHT", -4, 0)
 		health.value:SetParent(self)
 		health.PostUpdate = T.PostUpdateHealth
 		
-		power.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		power.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		power.value:Point("LEFT", health, "LEFT", 4, 0)
 		power.value:SetParent(self)
 		power.PreUpdate = T.PreUpdatePower
@@ -229,12 +229,12 @@ local function Shared(self, unit)
 			FlashInfo:SetScript("OnUpdate", T.UpdateManaLevel)
 			FlashInfo.parent = self
 			FlashInfo:SetAllPoints(health)
-			FlashInfo.ManaLevel = T.SetFontString(FlashInfo, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+			FlashInfo.ManaLevel = T.SetFontString(FlashInfo, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 			FlashInfo.ManaLevel:SetPoint("CENTER", health, "CENTER", 0, 1)
 			self.FlashInfo = FlashInfo
 			
 			-- pvp status text
-			local status = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+			local status = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 			status:SetPoint("CENTER", health, "CENTER", 0, 0)
 			status:SetTextColor(0.69, 0.31, 0.31)
 			status:Hide()
@@ -324,7 +324,7 @@ local function Shared(self, unit)
 			-- show druid mana when shapeshifted in bear, cat or whatever
 			if T.myclass == "DRUID" then
 				CreateFrame("Frame"):SetScript("OnUpdate", function() T.UpdateDruidMana(self) end)
-				local DruidMana = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+				local DruidMana = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 				DruidMana:SetTextColor(1, 0.49, 0.04)
 				self.DruidMana = DruidMana
 			end
@@ -363,7 +363,7 @@ local function Shared(self, unit)
 					local eclipseBarText = eclipseBar:CreateFontString(nil, 'OVERLAY')
 					eclipseBarText:SetPoint('TOP', panel)
 					eclipseBarText:SetPoint('BOTTOM', panel)
-					eclipseBarText:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+					eclipseBarText:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 					eclipseBar.PostUpdatePower = T.EclipseDirection
 					
 					-- hide "low mana" text on load if eclipseBar is show
@@ -428,7 +428,7 @@ local function Shared(self, unit)
 		
 		if (unit == "target") then			
 			-- Unit name on target
-			local Name = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+			local Name = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 			Name:Point("CENTER", panel, "CENTER", 0, 0)
 			Name:SetJustifyH("LEFT")
 			Name:SetParent(self)
@@ -503,12 +503,12 @@ local function Shared(self, unit)
 			castbar.PostCastStart = T.CheckCast
 			castbar.PostChannelStart = T.CheckChannel
 
-			castbar.time = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+			castbar.time = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 			castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 			castbar.time:SetTextColor(0.84, 0.75, 0.65)
 			castbar.time:SetJustifyH("RIGHT")
 
-			castbar.Text = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+			castbar.Text = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 			castbar.Text:Point("LEFT", castbar, "LEFT", 4, 0)
 			castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 			
@@ -554,8 +554,8 @@ local function Shared(self, unit)
 		-- add combat feedback support
 		if C["unitframes"].combatfeedback == true then
 			local CombatFeedbackText 
-			CombatFeedbackText = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
-			CombatFeedbackText:SetPoint("TOP", 0, -1)
+			CombatFeedbackText = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
+			CombatFeedbackText:SetPoint("TOP", 0, 1)
 			CombatFeedbackText.colors = {
 				DAMAGE = {0.69, 0.31, 0.31},
 				CRUSHING = {0.69, 0.31, 0.31},
@@ -620,7 +620,7 @@ local function Shared(self, unit)
 		power:Height(2)
 		
 		-- Unit name
-		local Name = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		local Name = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		Name:SetPoint("CENTER", health, "CENTER", 0, 1)
 		Name:SetJustifyH("CENTER")
 
@@ -655,7 +655,7 @@ local function Shared(self, unit)
 		health.PostUpdate = T.PostUpdatePetColor
 	
 		-- Unit name
-		local Name = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		local Name = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		Name:SetPoint("CENTER", health, "CENTER", 0, 1)
 		Name:SetJustifyH("CENTER")
 
@@ -707,17 +707,17 @@ local function Shared(self, unit)
 		health:Height(FOCUS_HEIGHT)
 		power:Height(2)
 		
-		health.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		health.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		health.value:Point("RIGHT", health, "RIGHT", -4, 0)
 		health.PostUpdate = T.PostUpdateHealth
 	
-		power.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		power.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		power.value:Point("LEFT", health, "LEFT", 4, 0)
 		power.PreUpdate = T.PreUpdatePower
 		power.PostUpdate = T.PostUpdatePower
 		
 		-- Unit name
-		local Name = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		local Name = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		Name:SetPoint("CENTER", health, "CENTER", 0, 1)
 		Name:SetJustifyH("CENTER")
 		
@@ -752,13 +752,13 @@ local function Shared(self, unit)
 		castbar.bg:SetFrameLevel(5)
 		castbar.bg:CreateShadow()
 		
-		castbar.time = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		castbar.time = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 		castbar.time:SetTextColor(0.84, 0.75, 0.65)
 		castbar.time:SetJustifyH("RIGHT")
 		castbar.CustomTimeText = T.CustomCastTimeText
 
-		castbar.Text = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		castbar.Text = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 		
@@ -922,18 +922,18 @@ local function Shared(self, unit)
 		self:SetAttribute("type2", "focus")
 	
 		health:Height(BOSS_HEIGHT)
-		health.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		health.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		health.value:Point("RIGHT", health, "RIGHT", -4, 0)
 		health.PostUpdate = T.PostUpdateHealth
 		
 		power:Height(2)
-		power.value = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		power.value = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		power.value:Point("LEFT", health, "LEFT", 4, 0)
 		power.PreUpdate = T.PreUpdatePower
 		power.PostUpdate = T.PostUpdatePower
 		
 		-- names
-		local Name = T.SetFontString(health, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		local Name = T.SetFontString(health, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		Name:SetPoint("CENTER", health, "CENTER", 0, 0)
 		Name.frequentUpdates = 0.2
 		
@@ -1032,13 +1032,13 @@ local function Shared(self, unit)
 		castbar.bg:SetFrameLevel(5)
 		castbar.bg:CreateShadow()
 		
-		castbar.time = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		castbar.time = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 		castbar.time:SetTextColor(0.84, 0.75, 0.65)
 		castbar.time:SetJustifyH("RIGHT")
 		castbar.CustomTimeText = T.CustomCastTimeText
 
-		castbar.Text = T.SetFontString(castbar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		castbar.Text = T.SetFontString(castbar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		castbar.Text:Point("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 		

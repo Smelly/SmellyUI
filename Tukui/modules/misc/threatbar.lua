@@ -23,7 +23,7 @@ TukuiThreatBar:SetBackdrop({bgFile = C.media.blank})
 TukuiThreatBar:SetBackdropColor(0, 0, 0, 0)
 TukuiThreatBar:SetMinMaxValues(0, 100)
 
-TukuiThreatBar.text = T.SetFontString(TukuiThreatBar, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+TukuiThreatBar.text = T.SetFontString(TukuiThreatBar, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 TukuiThreatBar.text:Point("LEFT", TukuiThreatBar, "RIGHT", 4, 0)
 	  
 TukuiThreatBar.bg = TukuiThreatBar:CreateTexture(nil, 'BORDER')

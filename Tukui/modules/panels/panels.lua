@@ -151,8 +151,9 @@ local rinfoline = CreateFrame("Frame", "TukuiRightInfoLine", TukuiChatBackground
 rinfoline:CreatePanel("Default", chatrightbg:GetWidth() - 16, 2, "BOTTOMLEFT", chatrightbg, "BOTTOMLEFT", 8, 20)
 
 local toggleFrame = CreateFrame("Frame", "toggleFrame", UIParent)
-toggleFrame:CreatePanel("Default", 45, 15, "TOPLEFT", UIParent, "TOPLEFT", 3, -3)
+toggleFrame:CreatePanel("Default", 45, 15, "TOPLEFT", UIParent, "TOPLEFT", 3, -3, true)
 toggleFrame:EnableMouse()
+toggleFrame.text:SetText("Chat")
 T.ApplyHover(toggleFrame)
 
 T.fadeIn(TukuiChatBackgroundLeft)
@@ -168,11 +169,7 @@ toggleFrame:SetScript("OnMouseDown", function(self)
 	end
 end)
 
-local toggleText = T.SetFontString(toggleFrame, C.media.pfont, 8, "MONOCHROMEOUTLINE")
-toggleText:Point("CENTER", toggleFrame, 0, 0)
-toggleText:SetText("Chat")
-
---BATTLEGROUND STATS FRAME
+--BATTLEGROUND STATS FRAME (not done yet)
 if C["datatext"].battleground == true then
 	local bgframe = CreateFrame("Frame", "TukuiInfoLeftBattleGround", UIParent)
 	bgframe:CreatePanel("Default", 1, 1, "TOPLEFT", UIParent, "BOTTOMLEFT", 0, 0)

@@ -67,7 +67,7 @@ local function Shared(self, unit)
 	end
 		
 	local name = health:CreateFontString(nil, 'OVERLAY')
-	name:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+	name:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	name:Point("CENTER", self, "CENTER", 0, 0)
 	self:Tag(name, '[Tukui:namemedium] [Tukui:dead][Tukui:afk]')
 	self.Name = name

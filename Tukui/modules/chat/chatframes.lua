@@ -207,9 +207,6 @@ local function SetupChatPosAndFont(self)
 		local point = GetChatWindowSavedPosition(id)
 		local _, fontSize = FCF_GetChatWindowInfo(id)
 		
-		chat:SetParent(TukuiChatBackgroundLeft)
-		tab:SetParent(TukuiChatBackgroundLeft)
-		
 		-- well... tukui font under fontsize 12 is unreadable.
 		if fontSize < 12 then		
 			FCF_SetChatWindowFontSize(nil, chat, 12)
@@ -221,10 +218,14 @@ local function SetupChatPosAndFont(self)
 		-- also set original width and height of chatframes 1 and 4 if first time we run tukui.
 		-- doing resize of chat also here for users that hit "cancel" when default installation is show.
 		if i == 1 then
+			chat:SetParent(TukuiChatBackgroundLeft)
+			tab:SetParent(TukuiChatBackgroundLeft)
 			chat:Point("BOTTOMLEFT", TukuiInfoLeft, "TOPLEFT", 8, 6)
 			chat:Point("BOTTOMRIGHT", TukuiInfoLeft, "TOPRIGHT", -8, 6)
 			FCF_SavePositionAndDimensions(chat)
 		elseif i == 4 and name == LOOT then
+			chat:SetParent(TukuiChatBackgroundRight)
+			tab:SetParent(TukuiChatBackgroundRight)
 			if not chat.isDocked then
 				chat:ClearAllPoints()
 				chat:Point("BOTTOMRIGHT", TukuiInfoRight, "TOPRIGHT", -8, 6)

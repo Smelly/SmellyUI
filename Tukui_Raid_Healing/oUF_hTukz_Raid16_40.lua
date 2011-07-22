@@ -15,7 +15,7 @@ local normTex = C["media"].blank
 local function Shared(self, unit)
 	self.colors = T.oUF_colors
 	self:RegisterForClicks("AnyUp")
-	self:SetFrameStrata("HIGH")
+	--self:SetFrameStrata("HIGH")
 	self:SetScript("OnEnter", UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 	
@@ -45,7 +45,7 @@ local function Shared(self, unit)
 	
 	health.value = health:CreateFontString(nil, "OVERLAY")
 	health.value:Point("TOP", 1, -2)
-	health.value:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+	health.value:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	self.Health.value = health.value
 	
 	health.PostUpdate = T.PostUpdateHealthRaid
@@ -118,7 +118,7 @@ local function Shared(self, unit)
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
 	name:Point("CENTER", health, 0, -1)
-	name:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+	name:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	self:Tag(name, "[Tukui:getnamecolor][Tukui:nameshort]")
 	self.Name = name
 	

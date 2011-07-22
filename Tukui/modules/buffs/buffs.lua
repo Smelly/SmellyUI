@@ -41,8 +41,8 @@ local function UpdateWeapons(button, slot, active, expiration)
 		button.texture:SetAllPoints()
 		
 		button.time = button:CreateFontString(nil, "ARTWORK")
-		button.time:SetPoint("BOTTOM", 0, -17)
-		button.time:SetFont(C.media.font, 12, "OUTLINE")
+		button.time:SetPoint("BOTTOM", 0, -6)
+		button.time:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 				
 		button.bg = CreateFrame("Frame", nil, button)
 		button.bg:CreatePanel("Default", 30, 30, "CENTER", button, "CENTER", 0, 0)
@@ -84,11 +84,11 @@ local function UpdateAuras(header, button, weapon)
 
 		button.count = button:CreateFontString(nil, "ARTWORK")
 		button.count:SetPoint("BOTTOMRIGHT", -1, 1)
-		button.count:SetFont(C.media.font, 12, "OUTLINE")
+		button.count:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 
 		button.time = button:CreateFontString(nil, "ARTWORK")
-		button.time:SetPoint("BOTTOM", 0, -17)
-		button.time:SetFont(C.media.font, 12, "OUTLINE")
+		button.time:SetPoint("BOTTOM", 0, -8)
+		button.time:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 
 		button:SetScript("OnUpdate", UpdateTime)
 		

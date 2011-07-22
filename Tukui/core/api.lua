@@ -135,8 +135,9 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y, text)
 	
 	if text then
 		if f.text then return end
-		local text = T.SetFontString(f, C.media.pfont, 8, "MONOCHROMEOUTLINE")
-		text:Point("CENTER", f)
+		local text = T.SetFontString(f, C.media.pfont, 12, "MONOCHROMEOUTLINE")
+		text:Point("CENTER", f, 1, 1)
+		text:SetJustifyH("CENTER")
 		f.text = text
 	end
 end
