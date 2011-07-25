@@ -461,7 +461,7 @@ do
 		local name = backdrop:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		name:SetPoint"CENTER"
 		name:SetJustifyH"CENTER"
-		name:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+		name:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		name:SetTextColor(1, 1, 1)
 
 		local scale = CreateFrame('Button', nil, backdrop)

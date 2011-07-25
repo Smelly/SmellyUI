@@ -213,8 +213,8 @@ C["buffreminder"] = {
 }
 
 C["skin"] = {
-	["skada"] = false,
-	["omen"] = false,
+	["skada"] = true,
+	["omen"] = true,
 	["embed"] = {										-- WIP still keep both embedded for now.
 		skada = true,
 		omen = true,

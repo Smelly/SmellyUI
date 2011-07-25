@@ -126,7 +126,7 @@ local function moving()
 				end)			
 				exec(T.MoverFrames[i], enable)			
 				if T.MoverFrames[i].text then 
-					T.MoverFrames[i].text:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+					T.MoverFrames[i].text:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 					T.MoverFrames[i].text:Show() 
 				end
 			else			
