@@ -210,7 +210,6 @@ local function SkinButton(f)
 end
 local x = CreateFrame("Frame")
 x:RegisterEvent("PLAYER_LOGIN")
-x:RegisterEvent("PLAYER_ENTERING_WORLD")
 x:SetScript("OnEvent", function(self, event)
     for i=1, Minimap:GetNumChildren() do
         SkinButton(select(i, Minimap:GetChildren()))
