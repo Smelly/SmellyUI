@@ -95,9 +95,11 @@ local function SetTemplate(f, t, tex)
 	else 
 		backdropa = 1
 	end
-	
+	 
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
 	f:SetBackdropBorderColor(borderr, borderg, borderb)
+	
+	f.bg = f
 end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y, text)

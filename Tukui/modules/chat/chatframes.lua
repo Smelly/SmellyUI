@@ -1,4 +1,5 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 if C["chat"].enable ~= true then return end
 
 -----------------------------------------------------------------------
@@ -73,7 +74,7 @@ local function SetChatStyle(frame)
 	end
 	
 	-- change tab font
-	_G[chat.."TabText"]:SetFont(C.media.pfont, 8, "MONOCHROMEOUTLINE")
+	_G[chat.."TabText"]:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	
 	-- yeah baby
 	_G[chat]:SetClampRectInsets(0,0,0,0)

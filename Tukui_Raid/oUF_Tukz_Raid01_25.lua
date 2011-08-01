@@ -16,12 +16,12 @@ local function Shared(self, unit)
 	self:RegisterForClicks("AnyUp")
 	self:SetScript('OnEnter', UnitFrame_OnEnter)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)
-	
+
 	self.menu = T.SpawnMenu
-	
+
 	self:SetBackdrop({bgFile = C["media"].blank, insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult}})
 	self:SetBackdropColor(0.1, 0.1, 0.1)
-	
+
 	local health = CreateFrame('StatusBar', nil, self)
 	health:Height(25)
 	health:SetPoint("TOPLEFT")
@@ -36,10 +36,10 @@ local function Shared(self, unit)
 	health.bg:SetTexture(0.3, 0.3, 0.3)
 	health.bg.multiplier = (0.3)
 	self.Health.bg = health.bg
-	
+
 	health.PostUpdate = T.PostUpdatePetColor
 	health.frequentUpdates = true
-	
+
 	if C.unitframes.unicolor == true then
 		health.colorDisconnected = false
 		health.colorClass = false
@@ -50,7 +50,7 @@ local function Shared(self, unit)
 		health.colorClass = true
 		health.colorReaction = true			
 	end
-	
+
 	local power = CreateFrame("StatusBar", nil, self)
 	power:Height(2)
 	power:Point("BOTTOMLEFT", health, "BOTTOMLEFT", 4, 4)
@@ -59,7 +59,7 @@ local function Shared(self, unit)
 	power:SetFrameLevel(health:GetFrameLevel() + 1)
 	self.Power = power
 	power:CreateBorder(false, true)
-	
+
 	power.frequentUpdates = true
 	power.colorDisconnected = true
 
@@ -69,14 +69,14 @@ local function Shared(self, unit)
 	power.bg:SetAlpha(1)
 	power.bg.multiplier = 0.4
 	self.Power.bg = power.bg
-	
+
 	if C.unitframes.unicolor == true then
 		power.colorClass = true
 		power.bg.multiplier = 0.1				
 	else
 		power.colorPower = true
 	end
-	
+
 	if C.unitframes.gradienthealth and C.unitframes.unicolor then
 		self:HookScript("OnEnter", function(self)
 			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) or (not UnitInRange(self.unit) and not UnitIsPlayer(self.unit)) then return end
@@ -84,7 +84,7 @@ local function Shared(self, unit)
 			health:SetStatusBarColor(hover.r, hover.g, hover.b)
 			health.classcolored = true
 		end)
-		
+
 		self:HookScript("OnLeave", function(self)
 			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) then return end
 			local r, g, b = oUF.ColorGradient(UnitHealth(self.unit)/UnitHealthMax(self.unit), unpack(C["unitframes"].gradient))
@@ -92,13 +92,13 @@ local function Shared(self, unit)
 			health.classcolored = false
 		end)
 	end
-		
+
 	local name = health:CreateFontString(nil, 'OVERLAY')
 	name:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	name:Point("CENTER", self, "CENTER", 0, 2)
 	self:Tag(name, '[Tukui:namemedium] [Tukui:dead][Tukui:afk]')
 	self.Name = name
-	
+
 	if C["unitframes"].showsymbols == true then
 		RaidIcon = health:CreateTexture(nil, 'OVERLAY')
 		RaidIcon:Height(14*T.raidscale)
@@ -107,34 +107,34 @@ local function Shared(self, unit)
 		RaidIcon:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\raidicons.blp") -- thx hankthetank for texture
 		self.RaidIcon = RaidIcon
 	end
-	
+
 	if C["unitframes"].aggro == true then
 		table.insert(self.__elements, T.UpdateThreat)
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', T.UpdateThreat)
 		self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', T.UpdateThreat)
 		self:RegisterEvent('UNIT_THREAT_SITUATION_UPDATE', T.UpdateThreat)
     end
-	
+
 	local LFDRole = health:CreateTexture(nil, "OVERLAY")
     LFDRole:Height(6*T.raidscale)
     LFDRole:Width(6*T.raidscale)
 	LFDRole:Point("TOPLEFT", 2, -2)
 	LFDRole:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\lfdicons.blp")
 	self.LFDRole = LFDRole
-	
+
 	local ReadyCheck = health:CreateTexture(nil, "OVERLAY")
 	ReadyCheck:Height(12*T.raidscale)
 	ReadyCheck:Width(12*T.raidscale)
 	ReadyCheck:SetPoint('CENTER')
 	self.ReadyCheck = ReadyCheck
-	
+
 	--local picon = self.Health:CreateTexture(nil, 'OVERLAY')
 	--picon:SetPoint('CENTER', self.Health)
 	--picon:SetSize(16, 16)
 	--picon:SetTexture[[Interface\AddOns\Tukui\media\textures\picon]]
 	--picon.Override = T.Phasing
 	--self.PhaseIcon = picon
-	
+
 	self.DebuffHighlightAlpha = 1
 	self.DebuffHighlightBackdrop = true
 	self.DebuffHighlightFilter = true
@@ -142,7 +142,7 @@ local function Shared(self, unit)
 	if C["unitframes"].showsmooth == true then
 		health.Smooth = true
 	end
-	
+
 	if C["unitframes"].showrange == true then
 		local range = {insideAlpha = 1, outsideAlpha = C["unitframes"].raidalphaoor}
 		self.Range = range
@@ -151,11 +151,11 @@ local function Shared(self, unit)
 	return self
 end
 
-oUF:RegisterStyle('TukuiRaid', Shared)
+oUF:RegisterStyle('TukuiDpsP05R10R15R25', Shared)
 oUF:Factory(function(self)
-	oUF:SetActiveStyle("TukuiRaid")
+	oUF:SetActiveStyle("TukuiDpsP05R10R15R25")
 
-	local raid = self:SpawnHeader("TukuiRaid", nil, "custom [@raid26,exists] hide;show", 
+	local raid = self:SpawnHeader("oUF_TukuiDpsRaid05101525", nil, "custom [@raid26,exists] hide;show", 
 		'oUF-initialConfigFunction', [[
 			local header = self:GetParent()
 			self:SetWidth(header:GetAttribute('initial-width'))
@@ -166,17 +166,17 @@ oUF:Factory(function(self)
 		"showParty", true, "showPlayer", C["unitframes"].showplayerinparty, "showRaid", true, "groupFilter", "1,2,3,4,5,6,7,8", "groupingOrder", "1,2,3,4,5,6,7,8", "groupBy", "GROUP", "yOffset", T.Scale(-1)
 	)
 	raid:SetPoint('TOPLEFT', UIParent, 5, -40)
-	
+
 	local pets = {} 
 		pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
-		pets[1]:SetPoint('TOPLEFT', raid, 'TOPLEFT', 0, -120*T.raidscale)
-		pets[1]:Size(120*T.raidscale, 16*T.raidscale)
+		pets[1]:SetPoint('TOPLEFT', raid, 'BOTTOMLEFT', 0, -6)
+		pets[1]:Size(120, 20)
 	for i =2, 4 do 
 		pets[i] = oUF:Spawn('partypet'..i, 'oUF_TukuiPartyPet'..i) 
 		pets[i]:SetPoint('TOP', pets[i-1], 'BOTTOM', 0, -8)
-		pets[i]:Size(120*T.raidscale, 16*T.raidscale)
+		pets[i]:Size(120, 20)
 	end
-	
+
 	local RaidMove = CreateFrame("Frame")
 	RaidMove:RegisterEvent("PLAYER_LOGIN")
 	RaidMove:RegisterEvent("RAID_ROSTER_UPDATE")
@@ -208,20 +208,19 @@ oUF:Factory(function(self)
 	end)
 end)
 
-local RaidBG = CreateFrame("Frame", nil, TukuiRaid)
+local RaidBG = CreateFrame("Frame", nil, UIParent)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
-
 RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
 RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
 RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
-RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
+RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:SetScript("OnEvent", function(self)
-	if TukuiRaid and TukuiRaid:IsVisible() then
+	if oUF_TukuiDpsRaid05101525:IsVisible() then
 		self:ClearAllPoints()
-		self:Point("TOPLEFT", TukuiRaid, "TOPLEFT", -2, 2)
-		self:Point("BOTTOMRIGHT", TukuiRaid, "BOTTOMRIGHT", 2, -2)
+		self:Point("TOPLEFT", oUF_TukuiDpsRaid05101525, "TOPLEFT", -2, 2)
+		self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid05101525, "BOTTOMRIGHT", 2, -2)
 		self:Show()
 	else
 		self:Hide()

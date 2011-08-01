@@ -592,9 +592,9 @@ function Stuffing:Layout(lb)
 		f = self.frame
 
 		f.gold:SetText(GetMoneyString(GetMoney(), 12))
-		f.editbox:SetFont(BAGSFONT, 8, "MONOCHROMEOUTLINE")
-		f.detail:SetFont(BAGSFONT, 8, "MONOCHROMEOUTLINE")
-		f.gold:SetFont(BAGSFONT, 8, "MONOCHROMEOUTLINE")
+		f.editbox:SetFont(BAGSFONT, 12, "MONOCHROMEOUTLINE")
+		f.detail:SetFont(BAGSFONT, 12, "MONOCHROMEOUTLINE")
+		f.gold:SetFont(BAGSFONT, 12, "MONOCHROMEOUTLINE")
 
 		f.detail:ClearAllPoints()
 		f.detail:Point("TOPLEFT", f, 12, -10)

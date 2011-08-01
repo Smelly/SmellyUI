@@ -1,4 +1,5 @@
 ﻿------------------------------------------------------------------------
+------------------------------------------------------------------------
 -- Launch Tukui Script
 ------------------------------------------------------------------------
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
@@ -163,7 +164,7 @@ v:SetSize(300, 36)
 v:SetPoint("CENTER")
 v:SetTemplate("Transparent")
 v:CreateShadow("Default")
-v:FontString("Text", C.media.pfont, 8, "MONOCHROMEOUTLINE")
+v:FontString("Text", C.media.pfont, 12, "MONOCHROMEOUTLINE")
 v.Text:SetPoint("CENTER")
 v.Text:SetText("Smelly UI v".. T.version .." by |cffff0000Smelly|r, website at |cffff0000www.tukui.org|r")
 v:SetScript("OnClick", function()

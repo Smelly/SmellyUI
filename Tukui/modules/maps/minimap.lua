@@ -1,4 +1,7 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+-- don't use our zonemap script if capping is used.	
+if IsAddOnLoaded("Capping") then return end
+
 --------------------------------------------------------------------
 -- Tukui Minimap Script
 --------------------------------------------------------------------

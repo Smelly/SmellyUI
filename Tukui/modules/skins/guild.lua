@@ -220,9 +220,9 @@ local function LoadSkin()
 	GuildTextEditFrame:SetTemplate("Default")
 	T.SkinScrollBar(GuildTextEditScrollFrameScrollBar)
 	GuildTextEditContainer:SetTemplate("Default")
-	for i=1, GuildLogFrame:GetNumChildren() do
-		local child = select(i, GuildLogFrame:GetChildren())
-		local point = select(i, child:GetPoint())
+	for i = 1, GuildTextEditFrame:GetNumChildren() do
+		local child = select(i, GuildTextEditFrame:GetChildren())
+		local point = select(1, child:GetPoint())
 		if point == "TOPRIGHT" then
 			T.SkinCloseButton(child)
 		else
@@ -234,15 +234,16 @@ local function LoadSkin()
 	T.SkinScrollBar(GuildLogScrollFrameScrollBar)
 	GuildLogFrame:SetTemplate("Default")
 
-	--Blizzard has two buttons with the same name, this is a fucked up way of determining that it isn't the other button
-	for i=1, GuildLogFrame:GetNumChildren() do
+	for i = 1, GuildLogFrame:GetNumChildren() do
 		local child = select(i, GuildLogFrame:GetChildren())
-		if child:GetName() == "GuildLogFrameCloseButton" and child:GetWidth() == 32 then
+		local point = select(1, child:GetPoint())
+		if point == "TOPRIGHT" then
 			T.SkinCloseButton(child)
-		elseif child:GetName() == "GuildLogFrameCloseButton" then
+		else
 			T.SkinButton(child, true)
 		end
 	end
+
 	
 	--Rewards
 	T.SkinScrollBar(GuildRewardsContainerScrollBar)

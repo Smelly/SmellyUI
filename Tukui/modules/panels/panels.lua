@@ -33,7 +33,7 @@ else
 end
 
 local TukuiBar4 = CreateFrame("Frame", "TukuiBar4", UIParent)
-TukuiBar4:CreatePanel("Transparent", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 3)
+TukuiBar4:SetPoint("BOTTOM", TukuiBar1, "BOTTOM", 0, 0)
 TukuiBar4:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
 TukuiBar4:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
 TukuiBar4:SetFrameStrata("BACKGROUND")
@@ -178,3 +178,46 @@ if C["datatext"].battleground == true then
 	bgframe:SetFrameLevel(0)
 	bgframe:EnableMouse(true)
 end
+
+-- minimap button skinning, credits to Elv for original base code
+local function SkinButton(f)
+    if f:GetObjectType() ~= "Button" then return end
+	f:SetPushedTexture(nil)
+    f:SetHighlightTexture(nil)
+    f:SetDisabledTexture(nil)
+	f:SetSize(22, 22)
+	
+    for i=1, f:GetNumRegions() do
+        local region = select(i, f:GetRegions())
+        if region:GetObjectType() == "Texture" then
+            local tex = region:GetTexture()
+            if tex:find("Border") or tex:find("Background") then
+                region:SetTexture(nil)
+            else
+				region:SetDrawLayer("OVERLAY", 5)
+                region:ClearAllPoints()
+                region:Point("TOPLEFT", f, "TOPLEFT", 2, -2)
+                region:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", -2, 2)
+                region:SetTexCoord(.08, .92, .08, .92)
+            end
+        end
+    end
+	f:SetTemplate("Default")
+	f:SetFrameLevel(f:GetFrameLevel() + 2)
+	f.bg:SetFrameLevel(f:GetFrameLevel() - 1)
+    T.ApplyHover(f)
+	
+end
+local x = CreateFrame("Frame")
+x:RegisterEvent("PLAYER_LOGIN")
+x:RegisterEvent("PLAYER_ENTERING_WORLD")
+x:SetScript("OnEvent", function(self, event)
+    for i=1, Minimap:GetNumChildren() do
+        SkinButton(select(i, Minimap:GetChildren()))
+    end
+    self = nil
+end)
+
+-- move button
+MiniMapBattlefieldFrame:ClearAllPoints()
+MiniMapBattlefieldFrame:Point("BOTTOMRIGHT", TukuiMinimap, "BOTTOMRIGHT", -4, 4)

@@ -40,7 +40,7 @@ end
 anchor:SetTemplate("Transparent")
 anchor:SetBackdropBorderColor(1, 0, 0, 1)
 anchor:SetMovable(true)
-anchor.text = T.SetFontString(anchor, C.media.pfont, 8, "MONOCHROMEOUTLINE")
+anchor.text = T.SetFontString(anchor, C.media.pfont, 12, "MONOCHROMEOUTLINE")
 anchor.text:SetPoint("CENTER")
 anchor.text:SetText(L.move_tooltip)
 

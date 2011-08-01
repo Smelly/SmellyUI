@@ -15,15 +15,14 @@ local normTex = C["media"].blank
 local function Shared(self, unit)
 	self.colors = T.oUF_colors
 	self:RegisterForClicks("AnyUp")
-	--self:SetFrameStrata("HIGH")
 	self:SetScript("OnEnter", UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
-	
+
 	self.menu = T.SpawnMenu
-	
+
 	self:SetBackdrop({bgFile = C["media"].blank, insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult}})
 	self:SetBackdropColor(0.1, 0.1, 0.1)
-	
+
 	local health = CreateFrame('StatusBar', nil, self)
 	health:SetPoint("TOPLEFT")
 	health:SetPoint("TOPRIGHT")
@@ -35,22 +34,22 @@ local function Shared(self, unit)
 	if C["unitframes"].gridhealthvertical then
 		health:SetOrientation('VERTICAL')
 	end
-	
+
 	health.bg = health:CreateTexture(nil, 'BORDER')
 	health.bg:SetAllPoints(health)
 	health.bg:SetTexture(normTex)
 	health.bg:SetTexture(1, 1, 1)
 	health.bg.multiplier = (0.3)
 	self.Health.bg = health.bg
-	
+
 	health.value = health:CreateFontString(nil, "OVERLAY")
 	health.value:Point("TOP", 1, -2)
 	health.value:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	self.Health.value = health.value
-	
+
 	health.PostUpdate = T.PostUpdateHealthRaid
 	health.frequentUpdates = true
-	
+
 	local glowBorder = {edgeFile = C["media"].blank, edgeSize = 1}
 	local aggro = CreateFrame("Frame", nil, self)
 	aggro:Point("TOPLEFT", health, "TOPLEFT", -1, 1)
@@ -60,9 +59,9 @@ local function Shared(self, unit)
 	aggro:SetFrameStrata("HIGH")
 	aggro:SetBackdropBorderColor(.8, .2, .2)
 	aggro:Hide()
-	
+
 	self.Aggro = aggro
-	
+
 	if C.unitframes.unicolor then
 		health.colorDisconnected = false
 		health.colorClass = false
@@ -73,7 +72,7 @@ local function Shared(self, unit)
 		health.colorClass = true
 		health.colorReaction = true			
 	end
-	
+
 	if C.unitframes.gradienthealth and C.unitframes.unicolor then
 		self:HookScript("OnEnter", function(self)
 			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) or (not UnitInRange(self.unit) and not UnitIsPlayer(self.unit)) then return end
@@ -81,7 +80,7 @@ local function Shared(self, unit)
 			health:SetStatusBarColor(hover.r, hover.g, hover.b)
 			health.classcolored = true
 		end)
-		
+
 		self:HookScript("OnLeave", function(self)
 			if not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit) then return end
 			local r, g, b = oUF.ColorGradient(UnitHealth(self.unit)/UnitHealthMax(self.unit), unpack(C["unitframes"].gradient))
@@ -107,28 +106,27 @@ local function Shared(self, unit)
 	power.bg:SetTexture(normTex)
 	power.bg:SetAlpha(1)
 	power.bg.multiplier = 0.4
-	self.Power.bg = power.bg
-	
+
 	if C.unitframes.unicolor then
 		power.colorClass = true
 		power.bg.multiplier = 0.1				
 	else
 		power.colorPower = true
 	end
-	
+
 	local name = health:CreateFontString(nil, "OVERLAY")
 	name:Point("CENTER", health, 0, -1)
 	name:SetFont(C.media.pfont, 12, "MONOCHROMEOUTLINE")
 	self:Tag(name, "[Tukui:getnamecolor][Tukui:nameshort]")
 	self.Name = name
-	
+
     if C["unitframes"].aggro then
 		table.insert(self.__elements, T.UpdateThreat)
 		self:RegisterEvent('PLAYER_TARGET_CHANGED', T.UpdateThreat)
 		self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', T.UpdateThreat)
 		self:RegisterEvent('UNIT_THREAT_SITUATION_UPDATE', T.UpdateThreat)
 	end
-	
+
 	if C["unitframes"].showsymbols then
 		local RaidIcon = health:CreateTexture(nil, 'OVERLAY')
 		RaidIcon:Height(18*T.raidscale)
@@ -137,29 +135,29 @@ local function Shared(self, unit)
 		RaidIcon:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\raidicons.blp")
 		self.RaidIcon = RaidIcon
 	end
-	
+
 	local ReadyCheck = health:CreateTexture(nil, "OVERLAY")
 	ReadyCheck:Height(12*C["unitframes"].gridscale*T.raidscale)
 	ReadyCheck:Width(12*C["unitframes"].gridscale*T.raidscale)
 	ReadyCheck:Point("TOP", 0, 6) 	
 	self.ReadyCheck = ReadyCheck
 
-	if not C["unitframes"].raidunitdebuffwatch then
+	--[[if not C["unitframes"].raidunitdebuffwatch then
 		self.DebuffHighlightAlpha = 1
 		self.DebuffHighlightBackdrop = true
 		self.DebuffHighlightFilter = true
-	end
-	
+	end]]
+
 	if C["unitframes"].showrange then
 		local range = {insideAlpha = 1, outsideAlpha = C["unitframes"].raidalphaoor}
 		self.Range = range
 	end
-	
+
 	if C["unitframes"].showsmooth then
 		health.Smooth = true
 		power.Smooth = true
 	end
-	
+
 	if C["unitframes"].healcomm then
 		local mhpb = CreateFrame('StatusBar', nil, self.Health)
 		if C["unitframes"].gridhealthvertical then
@@ -186,14 +184,14 @@ local function Shared(self, unit)
 			ohpb:Width(6*C["unitframes"].gridscale*T.raidscale)
 		end
 		ohpb:SetStatusBarTexture(normTex)
-		
+
 		self.HealPrediction = {
 			myBar = mhpb,
 			otherBar = ohpb,
 			maxOverflow = 1,
 		}
 	end
-	
+
 	if C["unitframes"].raidunitdebuffwatch then
 		T.createAuraWatch(self,unit)
 
@@ -203,23 +201,23 @@ local function Shared(self, unit)
 		RaidDebuffs:Point('CENTER', health, 1,0)
 		RaidDebuffs:SetFrameStrata(health:GetFrameStrata())
 		RaidDebuffs:SetFrameLevel(health:GetFrameLevel() + 2)
-		
+
 		RaidDebuffs:SetTemplate("Default")
-		
+
 		RaidDebuffs.icon = RaidDebuffs:CreateTexture(nil, 'OVERLAY')
 		RaidDebuffs.icon:SetTexCoord(.1,.9,.1,.9)
 		RaidDebuffs.icon:Point("TOPLEFT", 2, -2)
 		RaidDebuffs.icon:Point("BOTTOMRIGHT", -2, 2)
-		
+
 		RaidDebuffs.count = RaidDebuffs:CreateFontString(nil, 'OVERLAY')
 		RaidDebuffs.count:SetFont(C["media"].uffont, 9*C["unitframes"].gridscale, "THINOUTLINE")
 		RaidDebuffs.count:SetPoint('BOTTOMRIGHT', RaidDebuffs, 'BOTTOMRIGHT', 0, 2)
 		RaidDebuffs.count:SetTextColor(1, .9, 0)
-		
+
 		self.DebuffHighlightAlpha = 1
 		self.DebuffHighlightBackdrop = true
 		self.DebuffHighlightFilter = true
-		
+
 		self.RaidDebuffs = RaidDebuffs
     end
 
@@ -289,7 +287,7 @@ oUF:Factory(function(self)
 			"columnAnchorPoint", "TOP"
 		)
 		raid:Point("BOTTOMLEFT", ChatLeftTab, "TOPLEFT", 2, 5)
-		
+
 		local pets = {}
 			pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
 			pets[1]:Point('BOTTOMLEFT', raid, 'TOPLEFT', 71.5, 3)
@@ -299,7 +297,7 @@ oUF:Factory(function(self)
 			pets[i]:Point('LEFT', pets[i-1], 'RIGHT', 1, 0)
 			pets[i]:Size(72.5, 38)
 		end
-		
+
 		local PetBG = {}
 		for i = 1, 4 do
 			PetBG[i] = CreateFrame("Frame", nil, pets[i])
@@ -332,7 +330,7 @@ oUF:Factory(function(self)
 	end
 end)
 
-local RaidBG = CreateFrame("Frame", nil, TukuiGrid)
+local RaidBG = CreateFrame("Frame", nil, UIParent)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
 

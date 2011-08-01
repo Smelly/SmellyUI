@@ -1,4 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+	local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 
 ----------------------------------------------------------------------------------
 -- Config Panel ------------------------------------------------------------------
@@ -202,15 +202,17 @@ local function UpdateAddons()
 		text:Point("LEFT", button, "RIGHT", 8, 0)
 		text:SetText(title)
 	
-		button:SetScript("OnMouseDown", function()
-			if enabled then
-				button:SetBackdropBorderColor(1,0,0)
-				DisableAddOn(name)
-			else
-				button:SetBackdropBorderColor(0,1,0)
-				EnableAddOn(name)
-			end
-		end)
+		 button:SetScript("OnMouseDown", function()
+            if enabled then
+                button:SetBackdropBorderColor(1,0,0)
+                DisableAddOn(name)
+                enabled = false
+            else
+                button:SetBackdropBorderColor(0,1,0)
+                EnableAddOn(name)
+                enabled = true
+            end
+        end)
 	
 		oldb = button
 	end
