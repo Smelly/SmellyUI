@@ -3,7 +3,7 @@
 ## Project Collaborators: Elv22, Nightcracker
 ## Credits to: Caith, Caellian, Shestak, Haste, Tekkub, Alza, Roth, P3lim, Tulla, Hungtar, hankthetank, Ishtara, Haleth and others...
 ## Special Thanks to: Admins, Moderator and VIP's from tukui.org
-## Version: 1.2.2
+## Version: 1.3.0
 ## Build: 1322001
 ## Title: |cffC11515Smelly|r |cffFFFFFFEdit|r
 ## Notes: UI of awesomeness!
