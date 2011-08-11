@@ -144,12 +144,16 @@ RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
 RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
 RaidBG:SetScript("OnEvent", function(self)
-	if oUF_TukuiDpsRaid40:IsVisible() and oUF_TukuiDpsRaid40 then
-		self:ClearAllPoints()
-		self:Point("TOPLEFT", oUF_TukuiDpsRaid40, "TOPLEFT", -2, 2)
-		self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid40, "BOTTOMRIGHT", 2, -2)
-		self:Show()
-	else
-		self:Hide()
-	end
+    if oUF_TukuiDpsRaid40:IsVisible() then
+        self:ClearAllPoints()
+        self:Point("TOPLEFT", oUF_TukuiDpsRaid40, "TOPLEFT", -2, 2)
+        self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid40, "BOTTOMRIGHT", 2, -2)
+        self:Show()
+        if not self.parented then
+            self:SetParent(oUF_TukuiDpsRaid40)
+            self.parented = true
+        end
+    else
+        self:Hide()
+    end
 end)

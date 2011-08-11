@@ -330,7 +330,7 @@ oUF:Factory(function(self)
 	end
 end)
 
-local RaidBG = CreateFrame("Frame", nil, UIParent)
+local RaidBG = CreateFrame("Frame", nil, TukuiGrid)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
 
@@ -339,15 +339,19 @@ RaidBG:RegisterEvent("RAID_ROSTER_UPDATE")
 RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
 RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
-RaidBG:SetScript("OnEvent", function(self, event)
-	if TukuiGrid:IsVisible() then
-		self:ClearAllPoints()
-		self:Point("TOPLEFT", TukuiGrid, "TOPLEFT", -2, 2)
-		self:Point("BOTTOMRIGHT", TukuiGrid, "BOTTOMRIGHT", 2, -2)
-		self:Show()
-	else
-		self:Hide()
-	end
+RaidBG:SetScript("OnEvent", function(self)
+    if TukuiGrid:IsVisible() then
+        self:ClearAllPoints()
+        self:Point("TOPLEFT", TukuiGrid, "TOPLEFT", -2, 2)
+        self:Point("BOTTOMRIGHT", TukuiGrid, "BOTTOMRIGHT", 2, -2)
+        self:Show()
+        if not self.parented then
+            self:SetParent(TukuiGrid)
+            self.parented = true
+        end
+    else
+        self:Hide()
+    end
 end)
 
 local MaxGroup = CreateFrame("Frame")

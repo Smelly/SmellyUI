@@ -208,7 +208,7 @@ oUF:Factory(function(self)
 	end)
 end)
 
-local RaidBG = CreateFrame("Frame", nil, UIParent)
+local RaidBG = CreateFrame("Frame", nil, oUF_TukuiDpsRaid05101525)
 RaidBG:CreatePanel("Transparent", 1, 1, "CENTER", raid, "CENTER", 0, 0)
 RaidBG:Hide()
 RaidBG:RegisterEvent("UNIT_NAME_UPDATE")
@@ -217,12 +217,16 @@ RaidBG:RegisterEvent("RAID_TARGET_UPDATE")
 RaidBG:RegisterEvent("PARTY_MEMBERS_CHANGED")
 RaidBG:RegisterEvent("PARTY_LEADER_CHANGED")
 RaidBG:SetScript("OnEvent", function(self)
-	if oUF_TukuiDpsRaid05101525:IsVisible() then
-		self:ClearAllPoints()
-		self:Point("TOPLEFT", oUF_TukuiDpsRaid05101525, "TOPLEFT", -2, 2)
-		self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid05101525, "BOTTOMRIGHT", 2, -2)
-		self:Show()
-	else
-		self:Hide()
-	end
+    if oUF_TukuiDpsRaid05101525:IsVisible() then
+        self:ClearAllPoints()
+        self:Point("TOPLEFT", oUF_TukuiDpsRaid05101525, "TOPLEFT", -2, 2)
+        self:Point("BOTTOMRIGHT", oUF_TukuiDpsRaid05101525, "BOTTOMRIGHT", 2, -2)
+        self:Show()
+        if not self.parented then
+            self:SetParent(oUF_TukuiDpsRaid05101525)
+            self.parented = true
+        end
+    else
+        self:Hide()
+    end
 end)

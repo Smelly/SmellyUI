@@ -170,6 +170,7 @@ C["chat"] = {
 	["enable"] = true,                                  -- blah
 	["whispersound"] = true,                            -- play a sound when receiving whisper
 	["background"] = false,								-- keep false
+	["combattoggle"] = true, 							-- toggle chats to hide when entering combat
 }
 
 C["nameplate"] = {

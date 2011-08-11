@@ -1,8 +1,8 @@
 local T, C, L = unpack(select(2, ...))
 
--- Little side project semi broken atm
+--[[ Little side project semi broken atm
 
---[[local poisons = {
+local poisons = {
 	[1] = {"Crippling Poison"},
 	[2] = {"Instant Poison"},
 	[3] = {"Deadly Poison"},
@@ -18,16 +18,18 @@ local macros = {
 	[5] = {"/use Mind-Numbing Poison\n/use [button:1] 16\n/use[button:2] 17\n/click StaticPopup1Button1"},
 }
 
-local charges = {}
+local charges = {0,0,0,0,0} -- sets stack amound to 0 initially
+local c = 1
 local function find_poisons(search)
 	for bag = 0,4 do
 		for slot = 1,GetContainerNumSlots(bag) do
 			local item = GetContainerItemLink(bag,slot) 
 			local itemCount = select(2, GetContainerItemInfo(bag, slot))
 			if item and item:find(search) then
-				print("Found: "..item.."With "..itemCount.." charges.")
-				charges = tonumber(itemCount)
-			else
+			--	print("Found: "..item.."With "..itemCount.." charges.")
+				-- make current array index = stack amount
+				charges[c] = tonumber(itemCount)
+				c = c + 1
 			end
 		end
 	end
@@ -36,12 +38,12 @@ end
 local function get_poison_count()
 	for k, v in ipairs(poisons) do
 		find_poisons(unpack(v))
+		print(charges[k])
 	end
 end
 
 local buttons = {}
 local function init_buttons()
-	get_poison_count()
 	for i, v in ipairs(poisons) do
 		local itemTexture  = select(10, GetItemInfo(unpack(v)))
 		
@@ -62,12 +64,14 @@ local function init_buttons()
 		
 		buttons[i].count = T.SetFontString(buttons[i], C.media.pfont, 12, "MONOCHROMEOUTLINE")
 		buttons[i].count:Point("CENTER", buttons[i])
-		--buttons[i].count:SetText(charges)
+		buttons[i].count:SetText(charges[i])
 	end
 end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:RegisterEvent("BAG_UPDATE")
 f:SetScript("OnEvent", function()
+	get_poison_count()
 	init_buttons()
 end)]]

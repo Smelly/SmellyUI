@@ -138,14 +138,14 @@ iright:SetAlpha(0)
 
 -- CHAT BG LEFT
 local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", UIParent)
-chatleftbg:CreatePanel("Transparent", T.InfoLeftRightWidth, 160, "BOTTOM", TukuiInfoLeft, "BOTTOM", 0, 0)
+chatleftbg:CreatePanel("Transparent", T.InfoLeftRightWidth, 150, "BOTTOM", TukuiInfoLeft, "BOTTOM", 0, 0)
 
 local linfoline = CreateFrame("Frame", "TukuiLeftInfoLine", TukuiChatBackgroundLeft)
 linfoline:CreatePanel("Default", chatleftbg:GetWidth() - 16, 2, "BOTTOMLEFT", chatleftbg, "BOTTOMLEFT", 8, 20)
 
 -- CHAT BG RIGHT
 local chatrightbg = CreateFrame("Frame", "TukuiChatBackgroundRight", UIParent)
-chatrightbg:CreatePanel("Transparent", T.InfoLeftRightWidth, 160, "BOTTOM", TukuiInfoRight, "BOTTOM", 0, 0)
+chatrightbg:CreatePanel("Transparent", T.InfoLeftRightWidth, 150, "BOTTOM", TukuiInfoRight, "BOTTOM", 0, 0)
 
 local rinfoline = CreateFrame("Frame", "TukuiRightInfoLine", TukuiChatBackgroundRight)
 rinfoline:CreatePanel("Default", chatrightbg:GetWidth() - 16, 2, "BOTTOMLEFT", chatrightbg, "BOTTOMLEFT", 8, 20)
@@ -206,7 +206,6 @@ local function SkinButton(f)
 	f:SetFrameLevel(f:GetFrameLevel() + 2)
 	f.bg:SetFrameLevel(f:GetFrameLevel() - 1)
     T.ApplyHover(f)
-	
 end
 local x = CreateFrame("Frame")
 x:RegisterEvent("PLAYER_LOGIN")
@@ -218,5 +217,22 @@ x:SetScript("OnEvent", function(self, event)
 end)
 
 -- move button
-MiniMapBattlefieldFrame:ClearAllPoints()
-MiniMapBattlefieldFrame:Point("BOTTOMRIGHT", TukuiMinimap, "BOTTOMRIGHT", -4, 4)
+MiniMapBattlefieldFrame:HookScript("OnShow", function()
+	MiniMapBattlefieldFrame:ClearAllPoints()
+	MiniMapBattlefieldFrame:Point("BOTTOMRIGHT", TukuiMinimap, "BOTTOMRIGHT", -4, 4)
+end)
+
+if C.chat.combattoggle then
+	local showHide = CreateFrame("Frame")
+	showHide:RegisterEvent("PLAYER_REGEN_DISABLED")
+	showHide:RegisterEvent("PLAYER_REGEN_ENABLED")
+	showHide:SetScript("OnEvent", function(self, event)
+		if event == "PLAYER_REGEN_DISABLED" then
+			T.fadeOut(TukuiChatBackgroundLeft)
+			T.fadeOut(TukuiChatBackgroundRight)
+		else
+			TukuiChatBackgroundLeft:Show()
+			TukuiChatBackgroundRight:Show()
+		end
+	end)
+end

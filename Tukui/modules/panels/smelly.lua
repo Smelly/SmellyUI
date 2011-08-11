@@ -47,6 +47,7 @@ end)
 
 -- slash command to open up actionbar config
 function SlashCmdList.AB()
+	if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
 	if extrasBG:IsShown() then
 		actionBarBG:Show()
 		T.fadeOut(extrasBG)
